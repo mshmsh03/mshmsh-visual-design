@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Options</title>
+<!--
+  designa-xoshaka comparison page. Copy to .design-options/<nn-topic>/index.html and edit only
+  the CONFIG block below. Options show side by side, or one at a time at full width
+  (keys 1-9 or the arrow keys switch). An option is either:
+    src   - a page to load in a frame (a sibling mockup like "a.html", or a dev-server URL)
+    shots - screenshots made with scripts/shoot.mjs: { desktop: "a-1440x900.png", phone: "a-390x844.png" }
+  The person picks in Claude Code; this page is only for looking.
+-->
+<script>
+/* ===== CONFIG: edit this block ===== */
+const QUESTION = "Which colour direction for the cafe site?";
+const CONTEXT = "Same page and words in each option. Only the colours change.";
+const DEFAULT_SIZE = "desktop";            // "desktop" | "phone"
+const DEFAULT_LAYOUT = "side";             // "side" | "single"
+const OPTIONS = [
+  // { id: "0", name: "Current", note: "The site as it is today.", src: "current.html" },   // when changing existing work
+  { id: "A", name: "Roast brown", note: "Dark roast brown with crema accents. Warm, calm, coffee-first.", recommended: true, src: "a.html" },
+  { id: "B", name: "Limestone", note: "Light limestone and slate, one copper accent. Bright and modern.", src: "b.html" },
+  { id: "C", name: "Night counter", note: "Near-black with warm amber light. Evening cafe mood.",
+    shots: { desktop: "c-1440x900.png", phone: "c-390x844.png" } },
+];
+/* ===== end CONFIG ===== */
+</script>
+<style>
+  :root {
+    --bg: #f4f4f2; --panel: #ffffff; --ink: #1b1b1a; --muted: #62615c; --line: #dddcd7;
+    --badge: #1b1b1a; --badge-ink: #ffffff; --rec: #2f6b3a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161615; --panel: #1f1f1d; --ink: #ecebe6; --muted: #a3a29c; --line: #34332f;
+            --badge: #ecebe6; --badge-ink: #161615; --rec: #8fd19e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding: 20px 24px 12px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; }
+  h1 { margin: 0; font-size: 20px; font-weight: 650; }
+  .context { margin: 4px 0 0; color: var(--muted); }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button, .tabs button { font: inherit; border: 0; padding: 6px 14px; background: transparent; color: var(--ink); cursor: pointer; }
+  .seg button[aria-pressed="true"], .tabs button[aria-pressed="true"] { background: var(--badge); color: var(--badge-ink); }
+  button:focus-visible { outline: 2px solid var(--rec); outline-offset: -2px; }
+  .tabs { display: none; flex-wrap: wrap; gap: 6px; padding: 0 24px 12px; }
+  .tabs.on { display: flex; }
+  .tabs button { border: 1px solid var(--line); border-radius: 8px; }
+  main { display: grid; gap: 16px; padding: 8px 24px 32px; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); }
+  @media (max-width: 1000px) { main.side.desktop { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { main.side.phone { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  main.single.phone .option { width: min(100%, 460px); justify-self: center; }
+  .option { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; min-width: 0;
+            display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; align-content: start; }
+  .head { display: flex; align-items: center; gap: 10px; }
+  .badge { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center;
+           background: var(--badge); color: var(--badge-ink); font-weight: 700; flex: none; }
+  .name { font-weight: 650; }
+  .rec { margin-inline-start: auto; font-size: 12px; color: var(--rec); border: 1px solid currentColor; border-radius: 99px; padding: 1px 8px; white-space: nowrap; }
+  .note { color: var(--muted); margin: 6px 0 12px; }
+  .stage { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+  .stage iframe { border: 0; transform-origin: 0 0; position: absolute; inset-block-start: 0; inset-inline-start: 0; background: #fff; }
+  [dir="rtl"] .stage iframe { transform-origin: 100% 0; }
+  .stage img { display: block; width: 100%; height: auto; }
+  .open { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  footer { padding: 0 24px 28px; color: var(--muted); font-size: 13px; }
+  kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1 id="q"></h1>
+    <p class="context" id="ctx"></p>
+  </div>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Layout">
+      <button type="button" data-layout="side">Side by side</button>
+      <button type="button" data-layout="single">One at a time</button>
+    </div>
+    <div class="seg" role="group" aria-label="Size">
+      <button type="button" data-size="desktop">Desktop</button>
+      <button type="button" data-size="phone">Phone</button>
+    </div>
+  </div>
+</header>
+<nav class="tabs" id="tabs" aria-label="Options"></nav>
+<main id="grid"></main>
+<footer>Pick in Claude Code by letter, or mix: "A's colours with C's type". In "One at a time", <kbd>1</kbd>–<kbd>9</kbd> or <kbd>←</kbd> <kbd>→</kbd> switch options. This page is only for looking.</footer>
+<script>
+  const SIZES = { desktop: [1440, 900], phone: [390, 844] };
+  document.getElementById("q").textContent = QUESTION;
+  document.getElementById("ctx").textContent = CONTEXT;
+  document.title = QUESTION;
+  const grid = document.getElementById("grid");
+  const tabs = document.getElementById("tabs");
+  let size = DEFAULT_SIZE, layout = DEFAULT_LAYOUT, active = 0;
+
+  function link(href) {
+    const a = document.createElement("a");
+    a.className = "open"; a.href = href; a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "Open full size";
+    return a;
+  }
+
+  function optionCard(o) {
+    const card = document.createElement("section");
+    card.className = "option";
+    card.innerHTML = `<div class="head"><span class="badge"></span><span class="name"></span>${o.recommended ? '<span class="rec">Recommended</span>' : ""}</div><p class="note"></p><div class="stage"></div>`;
+    card.querySelector(".badge").textContent = o.id;
+    card.querySelector(".name").textContent = o.name;
+    card.querySelector(".note").textContent = o.note || "";
+    const stage = card.querySelector(".stage");
+    const [w, h] = SIZES[size];
+    const shot = o.shots && o.shots[size];
+    if (shot) {
+      const img = document.createElement("img");
+      img.src = shot; img.alt = `Option ${o.id} at ${size} size`;
+      stage.appendChild(img);
+      card.appendChild(link(shot));
+    } else if (o.src) {
+      const frame = document.createElement("iframe");
+      frame.src = o.src; frame.width = w; frame.height = h; frame.title = `Option ${o.id}`;
+      stage.appendChild(frame);
+      const fit = () => {
+        const s = stage.clientWidth / w;
+        frame.style.transform = `scale(${s})`;
+        stage.style.height = `${Math.round(h * s)}px`;
+      };
+      new ResizeObserver(fit).observe(stage);
+      card.appendChild(link(o.src));
+    }
+    return card;
+  }
+
+  function render() {
+    document.querySelectorAll("[data-layout]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.layout === layout)));
+    document.querySelectorAll("[data-size]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.size === size)));
+    grid.className = `${layout} ${size}`;
+    grid.innerHTML = "";
+    tabs.classList.toggle("on", layout === "single");
+    tabs.innerHTML = "";
+    if (layout === "single") {
+      OPTIONS.forEach((o, i) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.textContent = `${o.id} · ${o.name}`;
+        b.setAttribute("aria-pressed", String(i === active));
+        b.addEventListener("click", () => { active = i; render(); });
+        tabs.appendChild(b);
+      });
+      grid.style.setProperty("--cols", 1);
+      grid.appendChild(optionCard(OPTIONS[active]));
+      return;
+    }
+    const n = OPTIONS.length;
+    grid.style.setProperty("--cols", size === "desktop" ? (n === 4 ? 2 : Math.min(n, 3)) : Math.min(n, 4));
+    OPTIONS.forEach(o => grid.appendChild(optionCard(o)));
+  }
+
+  document.querySelectorAll("[data-layout]").forEach(b => b.addEventListener("click", () => { layout = b.dataset.layout; render(); }));
+  document.querySelectorAll("[data-size]").forEach(b => b.addEventListener("click", () => { size = b.dataset.size; render(); }));
+  document.addEventListener("keydown", e => {
+    if (layout !== "single" || e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = Number(e.key);
+    if (k >= 1 && k <= OPTIONS.length) { active = k - 1; render(); }
+    else if (e.key === "ArrowRight") { active = (active + 1) % OPTIONS.length; render(); }
+    else if (e.key === "ArrowLeft") { active = (active - 1 + OPTIONS.length) % OPTIONS.length; render(); }
+  });
+  render();
+</script>
+</body>
+</html>

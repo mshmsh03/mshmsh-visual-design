@@ -1,0 +1,11 @@
+# Python and Node leftovers
+__pycache__/
+*.pyc
+node_modules/
+
+# Preview and scratch output from using the skill on a project
+.design-options/
+out/
+
+.DS_Store
+Thumbs.db

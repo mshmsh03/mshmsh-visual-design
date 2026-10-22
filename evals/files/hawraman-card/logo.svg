@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <title>Hawraman Honey mark</title>
+  <polygon points="60,6 106,32 106,88 60,114 14,88 14,32" fill="#E3A21A"/>
+  <polygon points="60,20 94,40 94,80 60,100 26,80 26,40" fill="none" stroke="#3B2410" stroke-width="4"/>
+  <path d="M60 36 C60 36 44 58 44 70 a16 16 0 0 0 32 0 C76 58 60 36 60 36 Z" fill="#3B2410"/>
+  <path d="M30 84 L48 62 L58 74 L70 56 L90 84 Z" fill="#3B2410" opacity="0.35"/>
+</svg>

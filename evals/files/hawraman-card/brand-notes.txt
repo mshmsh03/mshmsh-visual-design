@@ -1,0 +1,18 @@
+Hawraman Honey (fictional client for testing)
+
+Family beekeepers from the Hawraman mountains. They sell jars of mountain honey at the Sulaymaniyah bazaar and through Instagram.
+
+From their jar labels:
+- honey gold  #E3A21A
+- comb brown  #3B2410
+- label cream #FFF6E0
+- fonts on the labels: unknown (the printer made them)
+
+Card details (as the owner typed them):
+- Name: Karwan Ahmed / کاروان ئەحمەد
+- Title: Owner / خاوەن
+- Phone: 0750 000 0000 (made-up test number)
+- Email: karwan@hawramanhoney.example
+- Instagram: @hawramanhoney
+
+Logo: logo.svg in this folder (the mark only, no text).

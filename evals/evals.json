@@ -1,0 +1,73 @@
+{
+  "skill_name": "designa-xoshaka",
+  "evals": [
+    {
+      "id": 1,
+      "name": "azmar-redesign",
+      "prompt": "this is the landing page for my client azmar coffee (index.html). honestly it looks so AI made lol. make it look good, they want english and kurdish both on the site",
+      "expected_output": "Asks before every change: a short brief, then 2-4 structurally different directions previewed on a comparison page next to the current page, then one decision at a time. The final page drops the AI tells (purple gradients, gradient text, emoji icons), handles Kurdish right-to-left properly (dir/lang, a Kurdish-capable font, no letter-spacing), fixes the quality floor only via picked options, and writes DESIGN.md with a decisions log.",
+      "files": ["evals/files/azmar-coffee/index.html"],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every edit traces to an answered question",
+        "Every design question offers 2-4 options with one marked recommended",
+        "A comparison page was built for a big visual choice",
+        "Final page has no high-severity AI tells (purple, gradient text, purple-blue gradient)",
+        "Kurdish content is right-to-left with lang=ckb",
+        "A Kurdish-capable font is declared",
+        "No letter-spacing on Kurdish text",
+        "DESIGN.md exists with a decisions log"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "pos-checkout-polish",
+      "prompt": "the cashiers at nali market keep complaining that the checkout screen in our flutter pos is hard to use and it looks cheap. can you polish it? the app is used in kurdish mostly. code is in lib/",
+      "expected_output": "Asks before every change with options and previews (text sketches and before/after code, since Flutter can't be screenshotted here). Offers directional widgets for RTL, 48px+ touch targets, a Kurdish-capable font, localization delegates, moving colours into the theme and replacing the default purple; applies only the picked options; writes DESIGN.md.",
+      "files": ["evals/files/nali-pos/lib/checkout_screen.dart", "evals/files/nali-pos/lib/main.dart"],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every edit traces to an answered question",
+        "Every design question offers 2-4 options with one marked recommended",
+        "No left/right-only widgets remain (EdgeInsets/Alignment/TextAlign/Positioned)",
+        "No touch target below 48",
+        "Localization for Kurdish was offered",
+        "A Kurdish-capable font was offered",
+        "DESIGN.md exists with a decisions log"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "buttons-tweak",
+      "prompt": "the buttons on the azmar page look weird to me, fix them",
+      "expected_output": "Stays in scope: offers 2-4 genuinely different button treatments with previews, applies only the pick to the buttons, and mentions other problems it noticed (Kurdish tracking, missing alt text, purple gradients elsewhere) as later questions without fixing them.",
+      "files": ["evals/files/azmar-coffee/index.html"],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every edit traces to an answered question",
+        "Every design question offers 2-4 options with one marked recommended",
+        "Options came with previews",
+        "Non-button parts of the page were left untouched",
+        "Other problems were mentioned but not fixed"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "card-print",
+      "prompt": "my client karwan from hawraman honey needs a business card, english on one side and kurdish on the other. everything i have from him is in this folder. the print shop wants a pdf",
+      "expected_output": "Reads the brand notes and logo first, asks only what's missing (cut size, digits), offers 2-4 print layouts dealt from different families with true-size previews of both sides on a comparison page, mirrors the Kurdish side with a font that covers every Sorani letter, uses the jar-label colours and the real logo, invents nothing, and delivers a PDF with 3 mm bleed plus DESIGN.md.",
+      "files": ["evals/files/hawraman-card/brand-notes.txt", "evals/files/hawraman-card/logo.svg"],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every edit traces to an answered question",
+        "Every design question offers 2-4 options with one marked recommended",
+        "The layout options were previewed visually before the pick",
+        "A print PDF with 3 mm bleed exists",
+        "The Kurdish side is right-to-left in a Kurdish-capable font",
+        "The brand's jar-label colours are used",
+        "Nothing invented on the card (no website or extra contacts)",
+        "DESIGN.md exists with a decisions log"
+      ]
+    }
+  ]
+}

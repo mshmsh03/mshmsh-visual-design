@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Azmar Coffee | Sulaymaniyah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .card { transition: all 0.3s ease; }
+    .btn:focus { outline: none; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white">
+
+  <!-- Nav -->
+  <nav class="flex items-center justify-between px-8 py-5">
+    <div class="text-xl font-extrabold bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">☕ Azmar Coffee</div>
+    <div class="flex space-x-8 text-slate-300">
+      <a href="#menu" class="hover:text-white">Menu</a>
+      <a href="#about" class="hover:text-white">About</a>
+      <a href="#visit" class="hover:text-white">Visit</a>
+    </div>
+    <button class="btn rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-2 font-semibold shadow-[0_0_25px_rgba(139,92,246,0.6)] hover:scale-105 transition-all">Order Now</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="h-screen flex flex-col items-center justify-center text-center px-6">
+    <span class="mb-4 rounded-full border border-purple-500/40 px-4 py-1 text-xs tracking-widest text-purple-300">✨ NEW · SPECIALTY · COFFEE</span>
+    <h1 class="text-6xl font-extrabold leading-tight">Elevate Your <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Coffee Experience</span></h1>
+    <p class="mt-6 max-w-2xl text-lg text-slate-400">Unleash the power of premium beans, crafted with passion and served with love in the heart of Sulaymaniyah. Your perfect cup, reimagined.</p>
+    <div class="mt-10 flex gap-4">
+      <button class="btn rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-3 font-semibold hover:scale-105 transition-all">Get Started →</button>
+      <button class="btn rounded-full border border-slate-700 px-8 py-3 font-semibold hover:scale-105 transition-all">Learn More</button>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="about" class="px-8 py-24">
+    <h2 class="text-center text-4xl font-bold">Why Choose Us?</h2>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="card rounded-2xl border border-slate-800 bg-slate-900 p-8 hover:scale-105">
+        <div class="text-4xl">🚀</div>
+        <h3 class="mt-4 text-xl font-semibold">Lightning Fast</h3>
+        <p class="mt-2 text-slate-400">Your coffee, ready in minutes. Effortlessly.</p>
+      </div>
+      <div class="card rounded-2xl border border-slate-800 bg-slate-900 p-8 hover:scale-105">
+        <div class="text-4xl">🌱</div>
+        <h3 class="mt-4 text-xl font-semibold">Ethically Sourced</h3>
+        <p class="mt-2 text-slate-400">Premium beans from the best farms in the world.</p>
+      </div>
+      <div class="card rounded-2xl border border-slate-800 bg-slate-900 p-8 hover:scale-105">
+        <div class="text-4xl">💜</div>
+        <h3 class="mt-4 text-xl font-semibold">Made With Love</h3>
+        <p class="mt-2 text-slate-400">Every cup is crafted with passion by our baristas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu -->
+  <section id="menu" class="px-8 py-24">
+    <h2 class="text-center text-4xl font-bold">Our Menu</h2>
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="card rounded-2xl bg-slate-900 p-6 hover:scale-105">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600" class="rounded-xl">
+        <h3 class="mt-4 text-xl font-semibold">Espresso</h3>
+        <p class="text-slate-400">3,000 IQD</p>
+      </div>
+      <div class="card rounded-2xl bg-slate-900 p-6 hover:scale-105">
+        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600" class="rounded-xl">
+        <h3 class="mt-4 text-xl font-semibold">Iced Latte</h3>
+        <p class="text-slate-400">4,500 IQD</p>
+      </div>
+      <div class="card rounded-2xl bg-slate-900 p-6 hover:scale-105">
+        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600" class="rounded-xl">
+        <h3 class="mt-4 text-xl font-semibold">Cappuccino</h3>
+        <p class="text-slate-400">4,000 IQD</p>
+      </div>
+    </div>
+    <p class="mt-8 text-center text-slate-500">Loading more items...</p>
+  </section>
+
+  <!-- Kurdish section -->
+  <section class="px-8 py-24 text-left">
+    <h2 class="text-4xl font-bold tracking-wide">بە خێربێن بۆ قاوەی ئازمەڕ</h2>
+    <p class="mt-4 ml-8 max-w-2xl text-slate-400">باشترین قاوە لە دڵی سلێمانی. هەموو ڕۆژێک لە کاتژمێر ٨ی بەیانی تا ١١ی شەو کراوەین.</p>
+    <a href="#visit" class="mt-6 inline-flex items-center gap-2 text-purple-400">سەردانمان بکە <span>→</span></a>
+  </section>
+
+  <!-- Visit -->
+  <section id="visit" class="px-8 py-24 text-center">
+    <h2 class="text-4xl font-bold">Visit Us</h2>
+    <p class="mt-4 text-slate-400">Salim Street, Sulaymaniyah · Open daily 8am to 11pm</p>
+    <div onclick="window.location='#menu'" class="mx-auto mt-8 w-fit cursor-pointer rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-3 font-semibold">Order Now 🚀</div>
+  </section>
+
+  <footer class="border-t border-slate-800 px-8 py-8 text-center text-slate-500">
+    © 2026 Azmar Coffee. All rights reserved.
+  </footer>
+</body>
+</html>
