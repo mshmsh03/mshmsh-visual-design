@@ -12,14 +12,21 @@ Usage:
     python deal.py --kind page --sector cafe --have photos,strong-name
     python deal.py --kind app --sector pos
     python deal.py --kind print --sector restaurant --options 4
+    python deal.py --kind identity --sector honey --have both-languages
+    python deal.py --kind packaging --sector sweets --have variants,product-photo
+    python deal.py --kind illustration --sector bakery
+    python deal.py --kind graphic --sector events --have photos
     python deal.py --kind page --tone formal --seed 4821      # reproducible
     python deal.py --list [--kind page]                        # every direction, one line each
     python deal.py --show page-is-the-object                   # one full card
 
+--kind: page, app, print, identity (logos and brand systems), packaging (boxes, labels, pouches),
+    illustration (style families), graphic (posters, social posts, ads).
 --have (what really exists): photos, many-photos, product-photo, strong-name, items, brand-art,
-    both-languages, real-data, archive. Without --have nothing is filtered; needs are printed.
+    both-languages, real-data, archive, variants (several flavours or sizes), illustrator (someone
+    can draw, or budget for it). Without --have nothing is filtered; needs are printed.
 --tone: quiet, bold, warm, technical, playful, formal, luxury.
-History of recent deals: ~/.designa-xoshaka/history.json (the last 5 per kind are skipped).
+History of recent deals: ~/.mshmsh-visual-design/history.json (the last 5 per kind are skipped).
 Use --no-history to neither read nor write it.
 """
 import argparse
@@ -283,10 +290,279 @@ d("print", "formal-centred", "Formal centred", "classic",
   [], ["letterhead", "card", "certificate", "company", "formal"], ["formal", "quiet"],
   "Honest conservative option; margins must be equal to the millimetre.")
 
+# ---------------------------------------------------------------- identity (logos and brand systems)
+d("identity", "custom-letter-wordmark", "Wordmark with one custom letter", "type-led",
+  "The name set in a face chosen for a reason, kerned by hand, with one letter redrawn to carry the idea; a compact mark is cut from that letter.",
+  "The changed letter comes from the inventory: the ڕ's tail as the river by the shop, the o as a cup seen from above.",
+  "Primary: the wordmark. Compact: the custom letter alone. Smallest: the same letter, thickened.",
+  ["strong-name"], ["cafe", "restaurant", "shop", "studio", "brand", "company", "any"], ["quiet", "bold", "luxury", "formal"],
+  "Generic if the face is a default; the custom letter must still read as the letter at 16px.",
+  "Draw the Kurdish name as a matched wordmark from a real Kurdish-capable face; never stretch either script to equal width.")
+d("identity", "letter-symbol", "First letter as the symbol", "symbol-led",
+  "One letter (Latin or Kurdish) drawn as a symbol that also shows something: a ب as a bowl, an H as a beehive frame.",
+  "The letter and the picture come from the name and the client's world at once.",
+  "Lockup: symbol on the reading-start side of the name; stacked version for square places.",
+  [], ["any"], ["bold", "playful", "quiet"],
+  "Must read as the letter AND the idea; a letter in a circle is not a symbol.",
+  "Pick which script's letter becomes the symbol on purpose; it leads every bilingual lockup.")
+d("identity", "their-object", "Their object, drawn once", "symbol-led",
+  "A pictorial mark of an object only this client has (the copper pot, the striped awning, the mountain behind the shop), reduced to three to five shapes.",
+  "Photograph the real object, trace its silhouette, simplify until it survives 16px.",
+  "Symbol beside or above the name; the symbol alone for stickers and the avatar.",
+  [], ["cafe", "restaurant", "bakery", "honey", "sweets", "shop", "kiosk", "food", "any"], ["warm", "playful", "quiet"],
+  "If it's a generic object (a cup, a leaf, a roof) it's clipart. It must be their specific one.")
+d("identity", "motif-mark", "Motif into mark", "pattern-led",
+  "A geometric motif from the place (a kilim diamond, a tile star, a brick bond, an embroidery border) becomes the mark and a pattern system.",
+  "The motif's real source (the client's carpet, the old house's tiles) is named in the rationale.",
+  "Mark from one motif unit; the repeat becomes packaging and backgrounds.",
+  [], ["brand", "shop", "restaurant", "sweets", "honey", "hotel", "any"], ["warm", "luxury", "formal"],
+  "Geometric marks look alike: check the competitor wall. Respect the source; no sacred calligraphy as decoration.")
+d("identity", "seal-emblem", "Seal or stamp", "emblem",
+  "The name in a ring, badge or stamp with the place and the year, like a maker's seal; works on kraft, cups, wax and rubber stamps.",
+  "The seal's text and border come from the client's own world: the village, the founding year, a phrase they use.",
+  "Primary: the full seal. Compact: the inner mark without text. Smallest: the inner mark thickened.",
+  [], ["bakery", "honey", "sweets", "cafe", "craft", "food", "shop"], ["warm", "formal", "luxury"],
+  "Small text dies at small sizes: the inner mark must stand alone. Invented 'since' years are dishonest.",
+  "Text set on a curve needs extra care in Kurdish/Arabic: keep joins intact and the reading direction natural.")
+d("identity", "mascot", "A character", "character",
+  "A simple character from the brand's world (a bee for honey, the cat that sits at the shop) with a few expressions; its head is the compact mark.",
+  "The character's look and habits come from a real story the client tells.",
+  "Character + name as the primary; the head alone as avatar and favicon; a model sheet for future drawings.",
+  [], ["kids", "sweets", "snacks", "cafe", "food", "kiosk", "honey"], ["playful", "warm"],
+  "Costs a model sheet and many poses; childish for formal clients; never close to a known character.",
+  "Mirror the character to face into right-to-left layouts; never mirror text inside it.")
+d("identity", "type-system", "No symbol: a typographic system", "system",
+  "The identity is a type pairing plus one graphic device (a bracket, a slash, a corner cut) used everywhere; the logo is the name set in it.",
+  "The device is taken from something in the client's world (the shape of their door, a mark on their invoices).",
+  "Wordmark + device; a monogram for square places.",
+  [], ["studio", "company", "consultancy", "events", "clinic", "education", "any"], ["quiet", "formal", "technical"],
+  "Weak at favicon size without a monogram; the device must be used consistently or it disappears.")
+d("identity", "bilingual-lockup", "Two scripts, one mark", "bilingual",
+  "Kurdish and Latin names drawn together as one lockup, matched in weight and optical height, sharing one element (a dot, a stroke ending, a cut).",
+  "The shared element is what both scripts can carry naturally, found by drawing both names side by side.",
+  "Stacked and side-by-side lockups, each script leading in its own market.",
+  ["both-languages"], ["any"], ["formal", "warm", "quiet", "bold"],
+  "Matching two scripts is slow work; never fake Arabic-looking Latin letters or Latin-looking Kurdish ones.",
+  "The leading script is a recorded decision; check every join and Kurdish letter in the real font at small size.")
+d("identity", "monogram", "Monogram", "emblem",
+  "Two or three initials joined into one sign, sometimes framed; for families, hotels, firms and fashion.",
+  "The initials the client actually uses (their stamp, their signature).",
+  "Monogram as the compact mark; the full name in a quiet face as the primary lockup.",
+  [], ["company", "hotel", "legal", "fashion", "family-business", "any"], ["formal", "luxury"],
+  "Initials may mean nothing to customers; check for unwanted words or shapes in both scripts.")
+d("identity", "sign-first", "Built for the shop sign", "system",
+  "Designed for the shopfront first: heavy, high contrast, readable from across the street at night, then refined down for print and screens.",
+  "The real street, the sign's size and the distance customers see it from.",
+  "Primary as the sign lockup; refined versions for cups, menus and the avatar.",
+  ["photos"], ["kiosk", "restaurant", "cafe", "shop", "fast-food", "street-food"], ["bold", "playful"],
+  "Can look crude up close: needs a refined small-size version. Local rules may require Kurdish to lead on signs.",
+  "Kurdish usually leads on signs in the Kurdistan Region; size both scripts for the same reading distance.")
+
+# ---------------------------------------------------------------- packaging (boxes, labels, pouches)
+d("packaging", "colour-coded-range", "Colour-coded range", "colour-led",
+  "One fixed layout for every variant; each variant owns one saturated colour, so the range reads as a block on the shelf.",
+  "Each colour sampled from the variant itself (the fruit, the spice, the flower the honey comes from).",
+  "Brand block and name in fixed positions; the colour field and the variant word change.",
+  ["variants"], ["food", "sweets", "honey", "snacks", "cosmetics", "drinks", "any"], ["bold", "playful", "quiet"],
+  "Variants must also be told apart by name and icon (colour-blind shoppers, kiosk lighting); text on each colour checked for contrast.")
+d("packaging", "giant-name", "The name is the pack", "type-led",
+  "The product or brand name set huge, running across the front and around the corners; little else on the main face.",
+  "The name's sound or meaning drives the type choice.",
+  "Name across the front and onto the side; the variant and net quantity in one quiet band.",
+  ["strong-name"], ["snacks", "drinks", "sweets", "cosmetics", "any"], ["bold", "playful"],
+  "The name must still read from the front alone; crops at folds can't cut the key letters.",
+  "A Kurdish-led pack wraps from the front onto the left side; never letter-space to make it longer.")
+d("packaging", "show-the-product", "Show the product", "image-led",
+  "A die-cut window or clear area shows the real product; the graphics frame it and stay out of its way.",
+  "The product's own colour and texture do the selling (golden honey, layered sweets).",
+  "Window on the front, brand and name around it, information on the back.",
+  [], ["sweets", "bakery", "honey", "food", "snacks", "toys"], ["quiet", "warm"],
+  "Only if the product looks good and survives light and handling; a window adds cost and a film to recycle.")
+d("packaging", "illustrated-wrap", "Illustrated wrap", "image-led",
+  "One continuous illustration wraps every panel (the place, the origin, the making); the front crops its best part.",
+  "The scene is drawn from the inventory: the valley, the orchard, the street of the shop.",
+  "Wrap scene with a calm area for the brand block and name on the front.",
+  ["illustrator"], ["food", "honey", "tea", "coffee", "sweets", "gift", "any"], ["warm", "playful"],
+  "Needs a consistent illustration style and budget; faces and focal points kept off the folds.")
+d("packaging", "kraft-and-label", "Kraft and a label", "material-led",
+  "Plain kraft, white or one-colour packs with a printed label, sleeve or stamp: cheap, flexible for small runs, honest.",
+  "The label or stamp carries the brand; the material carries the craft.",
+  "Label on the front centre or a band around the pack; a rubber stamp for batch details.",
+  [], ["bakery", "honey", "coffee", "craft", "cosmetics", "small-run", "food"], ["warm", "quiet"],
+  "Can look like every craft brand; the label must carry real identity. Inks print darker on kraft.")
+d("packaging", "pattern-system", "Pattern system", "pattern-led",
+  "A brand pattern (from the logo or a local motif) covers the pack; the variant changes the pattern's colour or density.",
+  "The pattern's source is in the inventory (a carpet, a tile, the comb of the hive).",
+  "Pattern field with one calm panel for the brand and name.",
+  [], ["sweets", "tea", "cosmetics", "gift", "honey", "any"], ["luxury", "warm", "playful"],
+  "Busy behind text: the calm panel is not optional.")
+d("packaging", "facts-as-design", "The facts are the design", "info-led",
+  "The real facts set large like a spec sheet or a lab label: origin, altitude, harvest month, grams, ingredients count.",
+  "Every number is true and only this product has it.",
+  "A strong typographic grid of facts; the brand small and precise.",
+  ["real-data"], ["honey", "coffee", "spices", "tea", "cosmetics", "supplements"], ["technical", "quiet", "formal"],
+  "Facts must be true and approved by the client; can feel cold without one warm element.")
+d("packaging", "appetite-photo", "Appetite photo", "image-led",
+  "A real close-up photo of the product, full bleed on the front, with the name on a clean band.",
+  "The client's own product, photographed in its best light.",
+  "Photo field, name band, variant mark.",
+  ["product-photo"], ["food", "snacks", "drinks", "sweets", "bakery"], ["warm", "bold"],
+  "Needs a great real photo; stock or generated food photos misrepresent the product. CMYK dulls photos: proof early.")
+d("packaging", "one-ink-and-finish", "One ink and a finish", "material-led",
+  "One ink on a coloured board, with foil, emboss or spot varnish on the mark: premium by restraint.",
+  "The board colour and the finish come from the product's world (dark comb brown, gold of the honey).",
+  "Mark and name centred or on a strict axis; information in the same single ink.",
+  [], ["gift", "cosmetics", "chocolate", "honey", "tea", "jewellery"], ["luxury", "quiet", "formal"],
+  "Finishes cost and need bold artwork; may disappear in a crowded kiosk.")
+d("packaging", "certificate-or-ticket", "Certificate or ticket", "object-led",
+  "The pack borrows the structure of a printed object from the client's world: a certificate, a ticket, a stamp sheet, an old receipt.",
+  "The object is real for this client (their grandfather's shop receipt, the market ticket).",
+  "Framed panels, numbered details, a seal for the batch.",
+  [], ["gift", "sweets", "tea", "honey", "heritage", "any"], ["formal", "warm"],
+  "Pastiche risk; borrow the structure and type, not fake aged textures. No invented medals or awards.")
+d("packaging", "character-on-pack", "The character sells it", "character",
+  "The brand's character interacts with the pack: peeks over the top flap, holds the product, appears on the inside.",
+  "The character from the identity or a new one from the client's story.",
+  "Character on the front and a surprise inside the lid or flap.",
+  ["illustrator"], ["kids", "sweets", "snacks", "toys", "cereal"], ["playful"],
+  "Childish for adult products; needs consistent character drawing (a model sheet).",
+  "Mirror the character for Kurdish-led faces so it looks into the content.")
+
+# ---------------------------------------------------------------- illustration (style systems)
+d("illustration", "flat-geometric", "Flat geometric", "flat",
+  "Shapes built from circles and rectangles, flat fills, four to six brand colours, no outlines.",
+  "The client's objects reduced to geometry (the counter, the product, the street).",
+  "Spot, card and hero levels of detail from one shape language.",
+  [], ["app", "explainer", "signage", "education", "any"], ["quiet", "playful", "technical"],
+  "Avoid the corporate flat cliché: tiny heads, noodle limbs, purple people.")
+d("illustration", "monoline", "Monoline", "line",
+  "One stroke weight, rounded joins, few fills; elegant and very cheap to draw and recolour in SVG.",
+  "The client's world drawn as single lines (the shop front, the tools of the trade).",
+  "Line drawings with one accent fill; stroke set per output size.",
+  [], ["menu", "map", "icons", "cafe", "bakery", "studio", "any"], ["quiet", "luxury", "formal"],
+  "Thin lines vanish at small sizes and on kraft; set the stroke for the smallest use.")
+d("illustration", "grain-riso", "Grain and riso", "texture",
+  "Flat shapes with grain or halftone, two or three inks with slight misregistration, like risograph prints.",
+  "Inks picked from the product and the place.",
+  "Overlapping ink shapes, texture on large fields only.",
+  [], ["poster", "food", "cafe", "bakery", "culture", "events", "packaging", "any"], ["playful", "warm", "bold"],
+  "Texture adds file size and can feel like a trend; keep it subtle in interfaces.")
+d("illustration", "cut-paper", "Cut paper and collage", "collage",
+  "Shapes with cut or torn edges, real paper scans and photo cut-outs combined.",
+  "The client's own photos and printed materials as collage material.",
+  "Layered pieces on a calm ground.",
+  ["photos"], ["events", "youth", "editorial", "culture"], ["playful", "bold"],
+  "Needs real scans; fake paper textures are a tell.")
+d("illustration", "ink-and-brush", "Ink and brush", "ink",
+  "Hand-drawn ink lines and brush marks: warm and human.",
+  "Drawn by a person from the client's real places and objects.",
+  "Scanned drawings, cleaned and recoloured to the palette.",
+  ["illustrator"], ["food", "craft", "personal-brand", "restaurant", "bakery", "cafe", "honey"], ["warm", "playful"],
+  "Generated 'hand-drawn' work looks fake; best from real drawing.")
+d("illustration", "linocut-stamp", "Linocut and stamp", "ink",
+  "Bold carved shapes, one or two colours, rough edges; strong on kraft and in one-colour print.",
+  "Subjects from the client's craft (bread, bees, tools, plants).",
+  "Chunky shapes, limited detail, solid ink.",
+  [], ["bakery", "honey", "craft", "packaging", "food"], ["warm", "bold"],
+  "Heavy at small sizes; plan a simpler version for icons.")
+d("illustration", "technical-plate", "Technical plate", "technical",
+  "Precise line drawings with labels, like a botanical or engineering plate.",
+  "The product's real parts, ingredients or process, drawn accurately.",
+  "A central drawing with numbered labels and a key.",
+  [], ["honey", "tea", "coffee", "cosmetics", "machines", "education"], ["technical", "quiet", "formal"],
+  "Must be accurate; labels needed in every language.",
+  "Label keys mirror in right-to-left layouts; numbers follow the chosen digits.")
+d("illustration", "motif-and-pattern", "Motif and pattern", "pattern",
+  "Illustration built from local ornament (kilim, tile, embroidery), repeated and recombined into borders, fields and spots.",
+  "Motifs from real references the client owns or names.",
+  "A motif library: unit, border, field, spot.",
+  [], ["identity", "packaging", "sweets", "hotel", "restaurant", "any"], ["warm", "luxury", "formal"],
+  "Cultural accuracy; low contrast behind text; never sacred calligraphy as decoration.")
+d("illustration", "character-world", "Character world", "character",
+  "A small cast of simple characters living in the brand's world.",
+  "Characters from the client's real customers and staff, simplified.",
+  "Model sheets, expressions, and a few recurring scenes.",
+  ["illustrator"], ["kids", "app", "campaign", "snacks", "education"], ["playful", "warm"],
+  "Many consistent poses to draw; local and inclusive casting matters.")
+d("illustration", "isometric-explainer", "Isometric explainer", "technical",
+  "30-degree isometric objects and rooms to explain a space or a process.",
+  "The client's real space or workflow, step by step.",
+  "One isometric scene per step, same angle and scale.",
+  [], ["explainer", "factory", "logistics", "app", "construction"], ["technical", "quiet"],
+  "An overused tech look; only when a space or process truly needs explaining.")
+
+# ---------------------------------------------------------------- graphic (posters, social, ads)
+d("graphic", "type-is-image", "Type is the image", "type-led",
+  "One huge headline is the whole visual; details sit in a small strict block.",
+  "The headline is the client's one message in their own words.",
+  "Headline filling 60 to 80% of the area, details block on the grid.",
+  [], ["events", "sale", "launch", "announcement", "any"], ["bold", "quiet"],
+  "Needs a strong face in both scripts; a weak headline has nothing to hide behind.",
+  "Kurdish headline in a heavy Kurdish face, never letter-spaced; mirror the details block.")
+d("graphic", "one-bold-crop", "One bold crop", "photo-led",
+  "A single real photo cropped hard (a hand, a detail, a face), the headline in its calm area.",
+  "The client's best real photo, cropped to its most telling detail.",
+  "Full-bleed photo, headline in the quiet zone, action at the end of the reading path.",
+  ["photos"], ["restaurant", "cafe", "events", "fashion", "any"], ["bold", "warm", "luxury"],
+  "Needs a strong real photo; text on photos needs a calm area or scrim.")
+d("graphic", "colour-field", "Colour field", "colour-led",
+  "A flat brand colour, one object or cut-out, big type: loud, cheap and recognisable in a feed.",
+  "The colour and object come from the inventory.",
+  "Colour ground, object off-centre, headline and action on the grid.",
+  [], ["sale", "food", "kiosk", "youth", "events", "any"], ["bold", "playful"],
+  "Every text colour checked on the field; neighbouring posts need different fields.")
+d("graphic", "information-grid", "Information grid", "grid",
+  "A strict modular grid where the information is the design: programmes, schedules, menus, prices.",
+  "The real schedule or list, set clearly.",
+  "Columns and rows with a clear hierarchy; one accent for what matters most.",
+  ["real-data"], ["events", "education", "menu", "schedule", "clinic"], ["technical", "formal", "quiet"],
+  "Can feel cold; needs one warm or bold element.",
+  "Columns and sequences run right to left in Kurdish and Arabic versions.")
+d("graphic", "collage-energy", "Collage", "collage",
+  "Cut-out photos, shapes and type layered with energy; for youth, events and launches.",
+  "The client's own photos and products as cut-outs.",
+  "Layers on a hidden grid; the headline on top.",
+  ["photos"], ["events", "youth", "launch", "music"], ["playful", "bold"],
+  "Turns messy without a grid underneath; cut-outs need clean edges.")
+d("graphic", "illustrated-scene", "Illustrated scene", "illustration",
+  "An illustration in the brand's style carries the message.",
+  "A scene from the client's world drawn in the style sheet.",
+  "Scene with a calm area for the headline.",
+  ["illustrator"], ["kids", "campaign", "education", "food", "any"], ["playful", "warm"],
+  "Needs an illustration style and time; must match the style sheet.")
+d("graphic", "the-number", "The number", "data",
+  "One real number set huge (the price, the date, the percentage, the years open) as the hero.",
+  "A number only this client can say, and true.",
+  "Number filling the space, one line explaining it, the action.",
+  ["real-data"], ["sale", "anniversary", "events", "report", "any"], ["bold", "technical"],
+  "The number must be true and meaningful; no fake urgency.",
+  "Use the chosen digits; isolate the number as a left-to-right run in Kurdish text.")
+d("graphic", "mirrored-bilingual-poster", "Mirrored bilingual", "bilingual",
+  "Two halves, Kurdish and English, mirrored around a centre line, each a complete small poster.",
+  "Both languages as equals.",
+  "Two halves, one shared image or rule in the middle.",
+  ["both-languages"], ["events", "official", "education", "any"], ["formal", "quiet"],
+  "Each half gets half the space: keep the copy very short.",
+  "Kurdish half on the right; never two scripts in one line.")
+d("graphic", "series-frame", "Series frame", "system",
+  "A fixed frame (border, band, logo corner) with changing content, for weekly posts, carousels and stories.",
+  "The frame's device comes from the identity; the content from the client's week.",
+  "Frame + content slot + caption band, built as a template the client can reuse.",
+  [], ["social", "cafe", "restaurant", "shop", "education", "any"], ["quiet", "warm", "playful"],
+  "Repetitive if the content doesn't vary; plan the 3:4 grid of nine posts together.")
+d("graphic", "poster-as-object", "Poster as object", "object-led",
+  "The piece borrows the structure of an object from the client's world: a receipt, a ticket, a price tag, a prescription.",
+  "The object is real for this client.",
+  "The object's layout at poster or post size, with the real details in it.",
+  [], ["events", "sale", "restaurant", "pharmacy", "shop", "any"], ["playful", "warm"],
+  "Borrow the structure and type, not fake paper textures.")
+
+KINDS = ["page", "app", "print", "identity", "packaging", "illustration", "graphic"]
 TONES = ["quiet", "bold", "warm", "technical", "playful", "formal", "luxury"]
 HAVE = ["photos", "many-photos", "product-photo", "strong-name", "items", "brand-art", "both-languages",
-        "real-data", "archive"]
-HIST = os.path.join(os.path.expanduser("~"), ".designa-xoshaka", "history.json")
+        "real-data", "archive", "variants", "illustrator"]
+HIST = os.path.join(os.path.expanduser("~"), ".mshmsh-visual-design", "history.json")
+OLD_HIST = os.path.join(os.path.expanduser("~"), ".designa-xoshaka", "history.json")  # before the rename
 
 
 def satisfied(needs, have):
@@ -312,7 +588,7 @@ def card(letter, x, show_rtl=True):
 
 def load_hist():
     try:
-        with open(HIST, encoding="utf-8") as f:
+        with open(HIST if os.path.exists(HIST) or not os.path.exists(OLD_HIST) else OLD_HIST, encoding="utf-8") as f:
             return json.load(f)
     except (OSError, ValueError):
         return {}
@@ -329,8 +605,8 @@ def save_hist(h):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--kind", choices=["page", "app", "print"], default="page")
-    ap.add_argument("--sector", help="e.g. cafe, restaurant, pos, construction, pharmacy, menu, letterhead")
+    ap.add_argument("--kind", choices=KINDS)
+    ap.add_argument("--sector", help="e.g. cafe, restaurant, pos, construction, pharmacy, menu, letterhead, honey, sweets, kiosk, events")
     ap.add_argument("--have", help="comma list of: " + ", ".join(HAVE))
     ap.add_argument("--tone", choices=TONES)
     ap.add_argument("--options", type=int, default=3)
@@ -352,12 +628,13 @@ def main():
             sys.exit(2)
         print(card("*", x))
         return
-    if a.list:
+    if a.list:                          # --list alone shows every kind
         for x in D:
             if not a.kind or x["kind"] == a.kind:
-                print(f"{x['kind']:5} {x['id']:24} {x['family']:14} {x['what'][:90]}")
+                print(f"{x['kind']:12} {x['id']:26} {x['family']:14} {x['what'][:80]}")
         return
 
+    a.kind = a.kind or "page"
     seed = a.seed if a.seed is not None else int(time.time() * 1000) % 100000
     rng = random.Random(seed)
     pool = [x for x in D if x["kind"] == a.kind]

@@ -44,7 +44,7 @@ Then write the **idea sentence**: "On this page, [one item from the inventory] b
 ## 3. Dealing directions and grounding them
 
 1. **Name the rut first:** the page this category always ships, and its predictable opposite. Neither is an option, unless the person asks for it.
-2. **Deal:** `python scripts/deal.py --kind page|app|print --sector <their trade> --have <what really exists> [--tone <tone>]`. It deals 3 directions from different families, filtered by the assets they have, and skips the ones dealt recently. Don't redeal because a card feels unfamiliar; redeal only when a card can't work (`--exclude <id>`) and say why.
+2. **Deal:** `python scripts/deal.py --kind page|app|print|identity|packaging|illustration|graphic --sector <their trade> --have <what really exists> [--tone <tone>]`. It deals 3 directions from different families, filtered by the assets they have, and skips the ones dealt recently. Don't redeal because a card feels unfamiliar; redeal only when a card can't work (`--exclude <id>`) and say why.
 3. **Ground each card** in the inventory: the idea sentence, the client's real colours and fonts (or chosen ones with a reason), the real content. A dealt card is a structure; the client's world fills it.
 4. **Lock what's fixed.** Brand colours, brand fonts and the logo stay in every option unless the person opens them up. Then the options differ in structure, density, hierarchy and motion, not in brand.
 5. **Add the person's own idea** if they gave one: it takes a slot.
@@ -135,6 +135,8 @@ Recognise these when they appear in your own options, and replace them with some
 - **Company/contractor:** a stock skyline photo + "Building the future" + three icon cards.
 - **"Avoid the obvious" opposite:** brutalist black-and-white with huge mono type, applied to a family bakery.
 - **Kurdish/Arabic side:** the Latin design with the text swapped and right-aligned, in a fallback font.
+- **Logos:** the category's generic object (coffee bean, tooth, roof, leaf, chef's hat), a letter in a circle, a gradient swoosh.
+- **Packs:** the shelf default (honey: a bee and hexagons on cream; sweets: gold on dark; organic: kraft and a green leaf; cosmetics: pastel and a thin serif).
 
 The full list of tells is in `review.md` section 6.
 

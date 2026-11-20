@@ -1,0 +1,3 @@
+# Keep line endings LF in the repo and in every checkout, so a Windows edit
+# never shows up as every line changed and the scripts still run.
+* text=auto eol=lf

@@ -13,6 +13,7 @@ A review finds things and offers them. It never fixes anything by itself. Every 
 8. Worst-case data
 9. Motion review
 10. The report and the questions
+11. Brand, pack, illustration and graphic pieces
 
 ---
 
@@ -144,3 +145,12 @@ Then the decision cards:
 - **Mechanical fixes** (alt text, focus rings, `…`) as a multiSelect checklist, one fix per option.
 - Record unticked or skipped findings under Declined in DESIGN.md, and never raise them again unless asked.
 - After the picked fixes, capture again and give the new score next to the old ones: "26 → 28 → 31 /40".
+
+## 11. Brand, pack, illustration and graphic pieces
+
+The /40 critique is for interfaces. For these pieces, walk the checklist at the end of the matching file (`identity.md` section 11, `packaging.md` section 13, `illustration.md` section 11, `graphic.md` section 10), look for these tells, and use the same severity levels (section 3) and report format (section 10):
+
+- **Logos:** a generic object for the category (coffee bean, tooth, house roof, leaf, chef's hat, globe), a letter in a circle presented as a symbol, gradients or gloss in the master mark, three metaphors in one symbol, a mark that only works in colour, an invented "since" year, a Kurdish name set in a fallback font next to a crafted Latin wordmark.
+- **Packs:** designed on a mockup and never checked on the dieline, the category default (every honey jar gets a bee and a hexagon on cream; every organic pack gets kraft and a green leaf), fake craft textures, claims without the plain product name, legal text in light grey or over a picture, a barcode squeezed into a corner, over a pattern or across a fold.
+- **Illustration:** the corporate flat look (tiny heads, noodle limbs, purple people), untouched stock or library scenes, generated images with broken lettering or hands, two styles in one project.
+- **Graphic pieces:** everything centred, five focal points, a stock photo under a gradient, text hidden behind the platform's own buttons, the same layout for every post in a series.

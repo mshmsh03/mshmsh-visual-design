@@ -1,12 +1,14 @@
 {
-  "skill_name": "designa-xoshaka",
+  "skill_name": "mshmsh-visual-design",
   "evals": [
     {
       "id": 1,
       "name": "azmar-redesign",
       "prompt": "this is the landing page for my client azmar coffee (index.html). honestly it looks so AI made lol. make it look good, they want english and kurdish both on the site",
       "expected_output": "Asks before every change: a short brief, then 2-4 structurally different directions previewed on a comparison page next to the current page, then one decision at a time. The final page drops the AI tells (purple gradients, gradient text, emoji icons), handles Kurdish right-to-left properly (dir/lang, a Kurdish-capable font, no letter-spacing), fixes the quality floor only via picked options, and writes DESIGN.md with a decisions log.",
-      "files": ["evals/files/azmar-coffee/index.html"],
+      "files": [
+        "evals/files/azmar-coffee/index.html"
+      ],
       "assertions": [
         "Asked a question before the first edit",
         "Every edit traces to an answered question",
@@ -24,7 +26,10 @@
       "name": "pos-checkout-polish",
       "prompt": "the cashiers at nali market keep complaining that the checkout screen in our flutter pos is hard to use and it looks cheap. can you polish it? the app is used in kurdish mostly. code is in lib/",
       "expected_output": "Asks before every change with options and previews (text sketches and before/after code, since Flutter can't be screenshotted here). Offers directional widgets for RTL, 48px+ touch targets, a Kurdish-capable font, localization delegates, moving colours into the theme and replacing the default purple; applies only the picked options; writes DESIGN.md.",
-      "files": ["evals/files/nali-pos/lib/checkout_screen.dart", "evals/files/nali-pos/lib/main.dart"],
+      "files": [
+        "evals/files/nali-pos/lib/checkout_screen.dart",
+        "evals/files/nali-pos/lib/main.dart"
+      ],
       "assertions": [
         "Asked a question before the first edit",
         "Every edit traces to an answered question",
@@ -41,7 +46,9 @@
       "name": "buttons-tweak",
       "prompt": "the buttons on the azmar page look weird to me, fix them",
       "expected_output": "Stays in scope: offers 2-4 genuinely different button treatments with previews, applies only the pick to the buttons, and mentions other problems it noticed (Kurdish tracking, missing alt text, purple gradients elsewhere) as later questions without fixing them.",
-      "files": ["evals/files/azmar-coffee/index.html"],
+      "files": [
+        "evals/files/azmar-coffee/index.html"
+      ],
       "assertions": [
         "Asked a question before the first edit",
         "Every edit traces to an answered question",
@@ -56,7 +63,10 @@
       "name": "card-print",
       "prompt": "my client karwan from hawraman honey needs a business card, english on one side and kurdish on the other. everything i have from him is in this folder. the print shop wants a pdf",
       "expected_output": "Reads the brand notes and logo first, asks only what's missing (cut size, digits), offers 2-4 print layouts dealt from different families with true-size previews of both sides on a comparison page, mirrors the Kurdish side with a font that covers every Sorani letter, uses the jar-label colours and the real logo, invents nothing, and delivers a PDF with 3 mm bleed plus DESIGN.md.",
-      "files": ["evals/files/hawraman-card/brand-notes.txt", "evals/files/hawraman-card/logo.svg"],
+      "files": [
+        "evals/files/hawraman-card/brand-notes.txt",
+        "evals/files/hawraman-card/logo.svg"
+      ],
       "assertions": [
         "Asked a question before the first edit",
         "Every edit traces to an answered question",
@@ -67,6 +77,85 @@
         "The brand's jar-label colours are used",
         "Nothing invented on the card (no website or extra contacts)",
         "DESIGN.md exists with a decisions log"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "honey-label-and-box",
+      "prompt": "karwan from hawraman honey wants a label for his 500g jars and a small gift box, kurdish first. a print shop in slemani will print them. he doesn't have a barcode number yet. everything i have is in this folder",
+      "expected_output": "Reads the brand notes, logo and label notes first, then asks only the missing facts (the shop's dieline or label template, print method, legal text and who supplies it, languages per face). Deals packaging directions from different families, previews flat panels at true size and the range in the pack mockup, leads in Kurdish with the required Arabic information planned, and never invents a barcode number, certification or claim: it reserves the barcode area and says so. Print files have bleed and a safe area, and every Kurdish or Arabic string it wrote is listed for a native read.",
+      "files": [
+        "evals/files/hawraman-card/brand-notes.txt",
+        "evals/files/hawraman-card/logo.svg",
+        "evals/files/hawraman-card/label-notes.txt"
+      ],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every edit traces to an answered question",
+        "Every design question offers 2-4 options with one marked recommended",
+        "Asked for or flagged the printer's dieline or label template instead of treating a guessed size as final",
+        "Options were previewed at true size and as a range (pack-mockup or equivalent)",
+        "No barcode number, certification, award or health claim was invented",
+        "Arabic labelling for the legal information was planned or flagged",
+        "Print files include bleed and keep text inside a safe area",
+        "Kurdish and Arabic strings written by Claude are listed for a native check"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "kiosk-logo",
+      "prompt": "i need a logo for a new sweets kiosk in erbil called shirin (شیرین). they sell kunafa and baklava. something people remember, it has to work on the sign, the cups and instagram",
+      "expected_output": "Starts with a short identity brief: the name's spelling in each script and which script leads, where the mark lives, 'this, not that' pairs, the competitor wall. Deals identity directions that differ in architecture, drawn in black and white as clean SVG, each with a compact and a favicon-grade mark and a Kurdish-capable font for the Kurdish name. Runs the logo-sheet tests before offering any candidate and states which tests each passes. Colour comes as a later question. Ends with the hand-off package and guidelines outline.",
+      "files": [],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Confirmed the name's spelling per script or which script leads",
+        "Every design question offers 2-4 options with one marked recommended",
+        "The first logo options differ in architecture, not only in colour or font",
+        "Each candidate has a compact and a smallest mark",
+        "Logo tests (small size, one colour, reversed, blur, print size) were rendered and inspected before candidates were offered",
+        "No generic category clipart (a plain pastry, a chef's hat, a letter in a circle) was offered as the idea",
+        "The Kurdish name is set in a font that covers every Sorani letter",
+        "A hand-off package or guidelines outline was given or planned"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "event-post-and-story",
+      "prompt": "make an instagram post and a story for azmar coffee's live music night this friday at 8pm. kurdish and english please",
+      "expected_output": "Asks only the missing facts (date written out, price or free, who is playing, the action), offers layout options from different graphic families at real size, makes the post at 1080x1350 (or 1080x1440 if picked) and the story at 1080x1920 with text inside the safe zones, keeps the two scripts out of the same line (separate versions or a clear lead language), uses text sizes readable on a phone, exports PNGs at exact sizes and inspects them at phone size.",
+      "files": [
+        "evals/files/azmar-coffee/index.html"
+      ],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every design question offers 2-4 options with one marked recommended",
+        "Post exported at 1080x1350 or 1080x1440 and story at 1080x1920",
+        "Story text and logo stay out of the top ~14% and bottom ~20-35%",
+        "No line mixes Kurdish and English",
+        "No text under about 32px on the 1080px canvas",
+        "The exported files were opened and checked at phone size",
+        "Kurdish strings written by Claude are listed for a native check"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "empty-state-illustrations",
+      "prompt": "the nali market pos needs small illustrations for the empty screens: no orders yet, no internet, empty cart. make them fit the app. code is in lib/",
+      "expected_output": "Reads the app's colours and type first, offers illustration style options from different families with previews, writes the picked style sheet into DESIGN.md, draws the three illustrations as clean SVG in code with one stroke weight and the app's palette, keeps all text outside the drawings, mirrors directional parts for right-to-left, and checks them at their real size in the app.",
+      "files": [
+        "evals/files/nali-pos/lib/checkout_screen.dart",
+        "evals/files/nali-pos/lib/main.dart"
+      ],
+      "assertions": [
+        "Asked a question before the first edit",
+        "Every design question offers 2-4 options with one marked recommended",
+        "Style options differ in family (for example monoline vs flat geometric vs stamp)",
+        "A style sheet was recorded in DESIGN.md",
+        "The three SVGs share one stroke weight and palette",
+        "No Kurdish or English text is drawn inside the SVGs",
+        "Directional elements are mirrored or checked for right-to-left",
+        "The illustrations were rendered and checked at their real size"
       ]
     }
   ]

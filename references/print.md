@@ -1,6 +1,6 @@
 # Print: menus, business cards, letterheads, bags, flyers
 
-Print forgives nothing after the run. This file covers building print pieces with code (HTML/CSS to PDF with WeasyPrint or Chrome, or python-docx for editable letters), checking them, and handing over files a print shop can use.
+Print forgives nothing after the run. This file covers building print pieces with code (HTML/CSS to PDF with WeasyPrint or Chrome, or python-docx for editable letters), checking them, and handing over files a print shop can use. Boxes, labels, pouches, cups and printed bags add their own rules in `packaging.md`; posters, flyers and banners add theirs in `graphic.md`; logos and stationery systems start in `identity.md`.
 
 ## Contents
 1. Before designing
@@ -53,6 +53,7 @@ Print forgives nothing after the run. This file covers building print pieces wit
 - **Browser print traps:** JavaScript-revealed content never appears in a programmatic PDF, background colours are off by default, and a dark-mode machine has printed a black page. So force the light palette in print CSS, use `break-inside: avoid` per card, and pre-split long lists with a continuation label.
 - **Imposition (office printing):** an 8-up A4 sheet with crop marks. For duplex, flip on the long edge and mirror the back columns. Check each back page by eye (on the right-to-left side, the panel goes on the right).
 - **Editable letters (.docx):** decoration goes in the header/footer as one anchored artwork behind text, never in the text flow. See `rtl-kurdish-arabic.md` section 9 for the right-to-left traps (`w:szCs`, `w:bidi`).
+- **Canva** (when the person works there): turn on "Show print bleed", export "PDF Print" with "Crop marks and bleed" and, on a paid plan, the CMYK colour profile. Bleed and crop marks have fixed sizes and there are no spot colours, so check the shop accepts that (`graphic.md` section 8).
 
 ## 5. Checking the files
 

@@ -3,7 +3,8 @@ __pycache__/
 *.pyc
 node_modules/
 
-# Preview and scratch output from using the skill on a project
+# Test output, previews and scratch output from using the skill on a project
+tests/out/
 .design-options/
 out/
 

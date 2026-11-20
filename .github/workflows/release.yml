@@ -1,0 +1,49 @@
+# On every change to main, builds mshmsh-visual-design.zip (the skill folder,
+# ready to upload in the Claude app) and puts it on the release called "latest":
+# https://github.com/mshmsh03/mshmsh-visual-design/releases/download/latest/mshmsh-visual-design.zip
+name: Release zip
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: true
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build mshmsh-visual-design.zip
+        run: |
+          mkdir -p dist/mshmsh-visual-design
+          cp -r SKILL.md README.md LICENSE THIRD-PARTY-NOTICES.md CHANGELOG.md references scripts assets dist/mshmsh-visual-design/
+          cd dist && zip -qr mshmsh-visual-design.zip mshmsh-visual-design -x '*/__pycache__/*'
+      - name: Put it on the "latest" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git tag -f latest
+          git push -f origin refs/tags/latest
+          cat > notes.md <<NOTES
+          The skill in one zip, rebuilt on every change to main (this one: ${GITHUB_SHA::7}, $(date -u +%Y-%m-%d)).
+
+          - **Claude app:** download mshmsh-visual-design.zip and upload it in your skill settings. To update, upload the new zip in place of the old one.
+          - **Claude Code:** \`npx skills add mshmsh03/mshmsh-visual-design\`. To update, run the same command again.
+
+          The skill was called designa-xoshaka until 2026-11-20. If you have that copy, remove it after installing this one (in the Claude app, delete designa-xoshaka; in Claude Code, \`npx skills remove designa-xoshaka -g\`).
+
+          What changed: [CHANGELOG.md](https://github.com/${GITHUB_REPOSITORY}/blob/main/CHANGELOG.md).
+          NOTES
+          if gh release view latest >/dev/null 2>&1; then
+            gh release upload latest dist/mshmsh-visual-design.zip --clobber
+            gh release edit latest --title "mshmsh-visual-design" --notes-file notes.md
+          else
+            gh release create latest dist/mshmsh-visual-design.zip --title "mshmsh-visual-design" --notes-file notes.md
+          fi

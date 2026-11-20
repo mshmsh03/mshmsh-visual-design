@@ -95,7 +95,7 @@ reduced: fade only
 
 ## 5. Comparison pages (big visual changes)
 
-**Big** means the person has to *see* it to judge it: the direction, palette, type pairing, page or section layout, hero, navigation pattern, imagery style, light/dark theme, logo placement, menu or card structure. For these, build a comparison page, open it, look at it yourself, then ask.
+**Big** means the person has to *see* it to judge it: the direction, palette, type pairing, page or section layout, hero, navigation pattern, imagery style, light/dark theme, logo placement, menu or card structure, a logo candidate, a pack front or range, an illustration style, a poster or post layout. For these, build a comparison page, open it, look at it yourself, then ask.
 
 1. **Folder.** `.design-options/<nn-topic>/` in the project root (for example `.design-options/02-palette/`). It is scratch space, kept until hand-off.
 2. **Build each option with the real thing.** Use the real content, logo and photos, and the real fonts. Copy or link the project's font files. Never judge a Kurdish preview rendered in a substitute font. If the work is bilingual, show the Kurdish version too.
@@ -105,6 +105,9 @@ reduced: fade only
      Then give the compare page `shots` instead of `src`.
    - *Flutter screens:* an HTML mock per option at the device size (1366x768 for a till, 390x844 for a phone), built from the app's real strings and colours. Changing app code just to preview is a change, so ask first.
    - *Print:* render each option at true size (HTML to PDF/PNG with WeasyPrint or Chrome), plus one page showing all of them side by side.
+   - *Logos:* each candidate in black and white on a plain ground, plus its `assets/logo-sheet.html` tests, plus 3 to 5 applications from the client's world (`identity.md` section 7).
+   - *Packs:* the flat panels at true size and the whole range in `assets/pack-mockup.html`, side by side with competitors' packs at the same scale when you have them (`packaging.md` section 10).
+   - *Social posts and posters:* each option exported at its real pixel size, and shown at phone size next to the full size (`graphic.md` section 3).
    - When changing existing work, add the **current version** as the first card, named "Current". Never blend the options into one.
    - **Keep previews light.** Show what the decision is about, not the whole site every time:
      - for a component, shoot the element only (`shoot.mjs --selector=".hero .btn" --jpeg`, about 10 KB);

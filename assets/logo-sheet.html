@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo tests</title>
+<!--
+  mshmsh-visual-design logo test sheet. Copy to .design-options/<nn-logo>/sheet.html next to the
+  candidate SVGs and edit only the CONFIG block. Every candidate gets the same tests on one sheet:
+  primary, 16/32 px (rendered at that size, then enlarged so you can see what the browser drew),
+  app icon in a circle and a rounded square, one colour black, reversed on dark, on the brand
+  colour, blurred (squint), true print width, and a competitor wall in one colour.
+
+  SVGs must have a transparent background: the one-colour tests recolour every visible pixel.
+  Shoot it:  node <skill>/scripts/shoot.mjs sheet.html <outDir> --sizes=1600x1200 --full --name=logo-tests
+  Then look at the PNG yourself before offering any candidate (identity.md section 5).
+-->
+<script>
+/* ===== CONFIG: edit this block ===== */
+const BRAND = "Hawraman Honey";
+const COLOURS = { brand: "#E3A21A", dark: "#3B2410", light: "#FFF6E0" };
+const PRINT_MM = 25;                       // true-size print test width in mm (a sticker or card)
+const CANDIDATES = [
+  // primary: the full lockup; compact: stacked or symbol (square places); smallest: favicon-grade mark.
+  // onBrand: optional variant made for the brand colour; leave it out to test the white version.
+  { id: "A", name: "Bee letterform", primary: "a-primary.svg", compact: "a-compact.svg", smallest: "a-mark.svg" },
+  { id: "B", name: "Comb seal", primary: "b-primary.svg", compact: "b-mark.svg" },
+];
+const COMPETITORS = [                      // nearest competitors' marks (PNG or SVG), same city or shelf
+  // "comp-1.png", "comp-2.png",
+];
+/* ===== end CONFIG ===== */
+</script>
+<style>
+  :root { --ink: #1b1b1a; --muted: #62615c; --line: #dddcd7; --paper: #ffffff; --bg: #f4f4f2; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding: 20px 24px 8px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between; }
+  h1 { margin: 0; font-size: 20px; font-weight: 650; }
+  header p { margin: 0; color: var(--muted); }
+  section.cand { margin: 12px 24px 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .cand-head { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .badge { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; background: var(--ink); color: #fff; font-weight: 700; }
+  .cand-name { font-weight: 650; font-size: 16px; }
+  .tests { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+  .cell { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+  .cell.wide { grid-column: span 2; }
+  .stage { flex: 1; min-height: 150px; display: grid; place-items: center; padding: 16px; gap: 10px; }
+  .label { font-size: 12px; color: var(--muted); padding: 6px 10px; border-top: 1px solid var(--line); background: #fafaf8; }
+  .label b { color: var(--ink); font-weight: 600; }
+  .row { display: flex; align-items: center; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  img { display: block; }
+  .mono-black { filter: brightness(0); }
+  .mono-white { filter: brightness(0) invert(1); }
+  .blur { filter: blur(3px); }
+  canvas.px { image-rendering: pixelated; image-rendering: crisp-edges; border: 1px dashed #c9c8c2; }
+  .tab { width: 220px; height: 34px; border-radius: 8px 8px 0 0; background: #e9e8e4; display: flex; align-items: center; gap: 8px; padding: 0 10px; font-size: 12px; color: #444; }
+  .mask { display: grid; place-items: center; overflow: hidden; }
+  .mask.circle { border-radius: 50%; }
+  .mask.squircle { border-radius: 22.4%; }
+  .wall { display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: center; justify-content: center; }
+  .wall .you { outline: 2px solid var(--ink); outline-offset: 6px; border-radius: 2px; }
+  .missing { color: #b42318; font-size: 12px; }
+  footer { padding: 0 24px 24px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title"></h1>
+  <p>Same tests for every candidate. A candidate that fails three or more is at best a secondary mark.</p>
+</header>
+<div id="sheet"></div>
+<footer>Print width is true size only at 100% zoom on a 96 dpi screen; print the sheet to check it on paper. Embroidery, foil and sign materials still need a physical sample.</footer>
+<script>
+  document.getElementById("title").textContent = `${BRAND}: logo tests`;
+  document.title = `${BRAND}: logo tests`;
+  const sheet = document.getElementById("sheet");
+
+  function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; }
+  function img(src, opts = {}) {
+    const i = new Image();
+    i.src = src; i.alt = opts.alt || "";
+    if (opts.w) i.style.width = typeof opts.w === "number" ? opts.w + "px" : opts.w;
+    if (opts.h) i.style.height = typeof opts.h === "number" ? opts.h + "px" : opts.h;
+    if (!opts.w && !opts.h) i.style.maxWidth = "100%";
+    if (opts.cls) i.className = opts.cls;
+    i.onerror = () => { const m = el("span", "missing"); m.textContent = `missing: ${src}`; i.replaceWith(m); };
+    return i;
+  }
+  function cell(label, build, opts = {}) {
+    const c = el("div", "cell" + (opts.wide ? " wide" : ""));
+    const s = el("div", "stage");
+    if (opts.bg) s.style.background = opts.bg;
+    build(s);
+    c.appendChild(s);
+    c.appendChild(el("div", "label", label));
+    return c;
+  }
+  // Render an SVG at a tiny pixel size, then show it enlarged and pixelated: what a browser tab really shows.
+  function pixelPreview(src, px, zoom) {
+    const wrap = el("div");
+    const cv = document.createElement("canvas");
+    cv.width = px; cv.height = px; cv.className = "px";
+    cv.style.width = cv.style.height = (px * zoom) + "px";
+    const i = new Image();
+    i.onload = () => {
+      const ctx = cv.getContext("2d");
+      const r = Math.min(px / i.naturalWidth, px / i.naturalHeight) || 1;
+      const w = i.naturalWidth * r, h = i.naturalHeight * r;
+      ctx.drawImage(i, (px - w) / 2, (px - h) / 2, w, h);
+    };
+    i.onerror = () => { const m = el("span", "missing"); m.textContent = `missing: ${src}`; cv.replaceWith(m); };
+    i.src = src;
+    wrap.appendChild(cv);
+    return wrap;
+  }
+
+  CANDIDATES.forEach(c => {
+    const compact = c.compact || c.primary;
+    const smallest = c.smallest || compact;
+    const sec = el("section", "cand");
+    const head = el("div", "cand-head");
+    head.appendChild(el("span", "badge", c.id));
+    const nm = el("span", "cand-name"); nm.textContent = c.name; head.appendChild(nm);
+    sec.appendChild(head);
+    const t = el("div", "tests");
+
+    t.appendChild(cell("<b>Primary</b> on white", s => s.appendChild(img(c.primary, { w: "86%" })), { wide: true }));
+    t.appendChild(cell("<b>16 px and 32 px</b>, enlarged 4x and 2x", s => {
+      const r = el("div", "row");
+      r.appendChild(pixelPreview(smallest, 16, 4));
+      r.appendChild(pixelPreview(smallest, 32, 2));
+      s.appendChild(r);
+    }));
+    t.appendChild(cell("<b>Browser tab</b> at real size", s => {
+      const tab = el("div", "tab");
+      tab.appendChild(img(smallest, { w: 16, h: 16 }));
+      const name = el("span"); name.textContent = BRAND; tab.appendChild(name);
+      s.appendChild(tab);
+    }));
+    t.appendChild(cell("<b>App icon and avatar</b> masks", s => {
+      const r = el("div", "row");
+      [["squircle", COLOURS.brand], ["circle", COLOURS.light], ["circle", "#ffffff"]].forEach(([shape, bg]) => {
+        const m = el("div", "mask " + shape);
+        m.style.width = m.style.height = "88px"; m.style.background = bg;
+        if (bg === "#ffffff") m.style.border = "1px solid #ddd";
+        m.appendChild(img(compact, { w: "62%" }));
+        r.appendChild(m);
+      });
+      s.appendChild(r);
+    }));
+    t.appendChild(cell("<b>One colour</b>, black on white", s => s.appendChild(img(c.primary, { w: "86%", cls: "mono-black" }))));
+    t.appendChild(cell("<b>Reversed</b>, white on dark", s => s.appendChild(img(c.primary, { w: "86%", cls: "mono-white" })), { bg: COLOURS.dark }));
+    t.appendChild(cell("<b>On the brand colour</b>", s => s.appendChild(c.onBrand ? img(c.onBrand, { w: "86%" }) : img(c.primary, { w: "86%", cls: "mono-white" })), { bg: COLOURS.brand }));
+    t.appendChild(cell("<b>Blur</b> (squint test)", s => s.appendChild(img(compact, { w: "54%", cls: "blur" }))));
+    t.appendChild(cell(`<b>Print width</b> ${PRINT_MM} mm (true size at 100%)`, s => s.appendChild(img(c.primary, { w: PRINT_MM + "mm" }))));
+    if (COMPETITORS.length) {
+      t.appendChild(cell("<b>Competitor wall</b>, one colour, same height", s => {
+        const w = el("div", "wall");
+        const all = COMPETITORS.map(src => ({ src })).concat([{ src: compact, you: true }]);
+        all.sort((a, b) => (a.src > b.src ? 1 : -1));
+        all.forEach(x => { const i = img(x.src, { h: 44, cls: "mono-black" }); if (x.you) i.classList.add("you"); w.appendChild(i); });
+        s.appendChild(w);
+      }, { wide: true }));
+    }
+    sec.appendChild(t);
+    sheet.appendChild(sec);
+  });
+</script>
+</body>
+</html>
