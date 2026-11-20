@@ -1,5 +1,7 @@
 # mshmsh-visual-design
 
+[![skills.sh](https://skills.sh/b/mshmsh03/mshmsh-visual-design)](https://skills.sh/mshmsh03/mshmsh-visual-design) [![Check](https://github.com/mshmsh03/mshmsh-visual-design/actions/workflows/check.yml/badge.svg)](https://github.com/mshmsh03/mshmsh-visual-design/actions/workflows/check.yml)
+
 A Claude skill for visual design that never changes anything without asking (formerly **designa-xoshaka**). Every change (a colour, a font, a layout, a logo shape, a pack front, an accessibility fix) is offered as 2 to 4 concrete options with a preview, and only the one you pick gets applied.
 
 It covers websites, landing pages, web apps, dashboards, Flutter and POS apps, logos and brand identities with their guidelines, packaging and labels, illustration, posters, flyers and social media posts, and printed pieces like menus, business cards and letterheads. It is built for work in English, Kurdish and Arabic, with right-to-left done properly: real Kurdish fonts, optical size matching, logical properties, mirrored layouts, digits and mixed-direction text.
@@ -21,7 +23,7 @@ Or by hand: download this repo and put the folder at
 - Windows: `C:\Users\<you>\.claude\skills\mshmsh-visual-design`
 - macOS / Linux: `~/.claude/skills/mshmsh-visual-design`
 
-Restart Claude Code, then type `/mshmsh-visual-design`, or just ask for design help ("make this landing page look less AI-made", "design a logo for my bakery", "a label for a 500 g honey jar", "an Instagram post for Friday's event", "design a bilingual menu").
+Restart Claude Code, then type `/mshmsh-visual-design`, or just ask for design help ("make this landing page look less AI-made", "design a logo for my bakery", "a label for a 500 g honey jar", "an Instagram post for Friday's event", "design a bilingual menu"). To update, run the install command again.
 
 **Renamed:** this skill was called `designa-xoshaka` until 2026-11-20. If you have the old one, remove it after installing this one so the two don't both load. In the Claude app, delete designa-xoshaka. In Claude Code, run `npx skills remove designa-xoshaka -g`.
 
@@ -97,6 +99,8 @@ The brand, packaging, illustration and graphic additions (November 2026) were ch
 | `evals/` | Test tasks for the skill |
 | `tests/` | `run.py` and its fixtures: the checks GitHub runs on every push |
 | `CHANGELOG.md` | What changed in each version |
+| `THIRD-PARTY-NOTICES.md` | The projects this skill learned from, and their licences |
+| `.github/` | The tests GitHub runs on every push, and the job that builds the release zip |
 
 ## Credits
 
