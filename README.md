@@ -1,6 +1,6 @@
 # mshmsh-visual-design
 
-[![skills.sh](https://skills.sh/b/mshmsh03/mshmsh-visual-design)](https://skills.sh/mshmsh03/mshmsh-visual-design) [![Check](https://github.com/mshmsh03/mshmsh-visual-design/actions/workflows/check.yml/badge.svg)](https://github.com/mshmsh03/mshmsh-visual-design/actions/workflows/check.yml)
+[![Check](https://github.com/mshmsh03/mshmsh-visual-design/actions/workflows/check.yml/badge.svg)](https://github.com/mshmsh03/mshmsh-visual-design/actions/workflows/check.yml)
 
 A Claude skill for visual design that never changes anything without asking (formerly **designa-xoshaka**). Every change (a colour, a font, a layout, a logo shape, a pack front, an accessibility fix) is offered as 2 to 4 concrete options with a preview, and only the one you pick gets applied.
 
